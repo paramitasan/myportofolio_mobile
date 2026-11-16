@@ -4,7 +4,7 @@ Name: **Paramita Santoso**
 
 NPM: **2506554171**
 
-Class: **KKI**<br>
+Class: **KKI**<br><br>
 
 ### Description
 `myportofolio_mobile` is mobile version of `myportofolio`, which showcases my education records and experiences.<br><br>
@@ -94,13 +94,16 @@ Class: **KKI**<br>
     - Google Gemini: Used for reviewing code structure, diagnosing issues, and giving suggestions.
     - Claude Sonnet 5.5: Used for debugging widget behavior and implementing the tap-to-copy clipboard interaction.
 <br>
+
 - **Prompt Strategy & Assisted Parts:**
   - I sent my latest file, then used targeted prompts describing specific errors (such as pixel overflow) or desired interactions (`InkWell` tap-to-copy). I also asked the AI to explain *why* specific widgets worked so I could integrate them cleanly into my existing codebase.
   - **Specific assisted parts:** Wrapping the body in `SingleChildScrollView` + `ConstrainedBox` + `Expanded` for responsiveness in `menu.dart`, and adding `Clipboard.setData` inside `InfoCard`.
 <br>
+
 - **Prompts:**
     - "Could you help me fix the pixel overflow problem I currently have? I would like to make the page responsive if possible. Explain the problem and what you did."
     - "I'd like to have tap-to-copy feature for InfoCard. I read it uses InkWell. How to implement it?"
 <br>
+
 - **AI's Limitation & Manual Fix:**
     - Context-unaware snippets and bracket nesting: The AI only gave partial code snippets with different indentation than my file. I had to manually trace the widget tree and verify where to insert the lines so mismatched parentheses wouldn't break the build or cause layout errors.
