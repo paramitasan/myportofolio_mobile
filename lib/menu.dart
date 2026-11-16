@@ -8,11 +8,11 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "KKI";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("View Education Record", Icons.folder),
-    ItemHomepage("View Experiences", Icons.assignment_ind),
-    ItemHomepage("Logout", Icons.logout),
-    ItemHomepage("Add Education Record", Icons.add_circle),
-    ItemHomepage("Add Experience", Icons.add_circle),
+    ItemHomepage("View Education Record", Icons.folder, Colors.teal.shade500),
+    ItemHomepage("View Experiences", Icons.assignment_ind, Colors.deepPurple.shade500),
+    ItemHomepage("Logout", Icons.logout, Colors.red.shade500),
+    ItemHomepage("Add Education Record", Icons.add_circle, Colors.cyanAccent.shade700),
+    ItemHomepage("Add Experience", Icons.add_circle, Colors.indigoAccent.shade700),
   ];
 
   @override
@@ -26,7 +26,7 @@ class MyHomePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -93,8 +93,9 @@ class MyHomePage extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color color;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.color);
 }
 
 class InfoCard extends StatelessWidget {
@@ -133,7 +134,7 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: () {
