@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -105,21 +106,39 @@ class InfoCard extends StatelessWidget {
 
   const InfoCard({super.key, required this.title, required this.content});
 
+  /// Copies [content] to the clipboard, then notifies the user.
+  Future<void> _copyToClipboard(BuildContext context) async {
+    await Clipboard.setData(ClipboardData(text: content));
+
+    // Guard: the widget may have been removed while awaiting the copy.
+    if (!context.mounted) return;
+
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(content: Text('$title copied: $content')),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 2.0,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8.0),
-            Text(content),
-          ],
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => _copyToClipboard(context),
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Text(
+                title,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8.0),
+              Text(content),
+            ],
+          ),
         ),
       ),
     );
