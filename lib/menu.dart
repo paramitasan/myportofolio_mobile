@@ -11,7 +11,7 @@ class MyHomePage extends StatelessWidget {
     ItemHomepage("View Education Record", Icons.folder, Colors.teal.shade500),
     ItemHomepage("View Experiences", Icons.assignment_ind, Colors.deepPurple.shade500),
     ItemHomepage("Logout", Icons.logout, Colors.red.shade500),
-    ItemHomepage("Add Education Record", Icons.add_circle, Colors.cyanAccent.shade700),
+    ItemHomepage("Add Education Record", Icons.post_add, Colors.cyanAccent.shade700),
     ItemHomepage("Add Experience", Icons.add_circle, Colors.indigoAccent.shade700),
   ];
 
@@ -20,7 +20,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'MyPortfolio',
+            'MyPortofolio',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class MyHomePage extends StatelessWidget {
                         const Padding(
                           padding: EdgeInsets.only(top: 16.0),
                           child: Text(
-                            'Welcome to MyPortfolio Mobile!',
+                            'Welcome to MyPortofolio Mobile!',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.0,
