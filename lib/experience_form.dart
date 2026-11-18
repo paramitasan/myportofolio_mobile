@@ -15,7 +15,6 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   String _description = "";
   String _category = "full-time"; // default
   String _thumbnail = "";
-  String _projectLink = "";
   DateTime? _startedAt;
   DateTime? _endedAt;
   bool _isOngoing = false;
