@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -27,8 +28,12 @@ class MyHomePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blueGrey.shade700,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+
+      drawer: const LeftDrawer(),
+      
       body: SingleChildScrollView(
         child: Center(
           child: ConstrainedBox(
