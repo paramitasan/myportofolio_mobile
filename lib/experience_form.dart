@@ -291,6 +291,21 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                           builder: (context) {
                             return AlertDialog(
                               title: const Text('Experience added successfully!'),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Experience: $_title'),
+                                    Text('Description: $_description'),
+                                    Text('Category: $_category'),
+                                    Text('Thumbnail: $_thumbnail'),
+                                    // Format DateTime to YYYY-MM-DD without time
+                                    Text('Started at: ${_startedAt?.toString().split(' ')[0]}'),
+                                    // Format DateTime to YYYY-MM-DD without time
+                                    Text('Ended at: ${_endedAt?.toString().split(' ')[0] ?? '-'}'),
+                                  ],
+                                ),
+                              ),
                               actions: [
                                 TextButton(
                                   child: const Text('OK'),
