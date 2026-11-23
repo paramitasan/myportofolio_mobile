@@ -48,7 +48,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
     final picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
-      firstDate: DateTime(1950),
+      firstDate: DateTime(2010),
       lastDate: DateTime(2100),
     );
 
