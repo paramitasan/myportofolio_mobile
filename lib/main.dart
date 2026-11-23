@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myportofolio_mobile/menu.dart';
+import 'package:myportofolio_mobile/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,9 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'MyPortofolio',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.indigo,
-          secondary: Colors.amber[700],
+          seedColor: Colors.blueGrey,
+          secondary: Colors.teal[500],
         ),
+        fontFamily: 'Helvetica Neue',
         useMaterial3: true,
       ),
       home: MyHomePage(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myportofolio_mobile/widgets/left_drawer.dart';
+import 'package:myportofolio_mobile/widgets/menu_card.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -21,14 +23,18 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'MyPortofolio',
+            'My Portofolio',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blueGrey.shade700,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+
+      drawer: const LeftDrawer(),
+      
       body: SingleChildScrollView(
         child: Center(
           child: ConstrainedBox(
@@ -72,7 +78,8 @@ class MyHomePage extends StatelessWidget {
                           padding: const EdgeInsets.all(20),
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
-                          crossAxisCount: 3,
+                          crossAxisCount: 3, // num of columns
+                          childAspectRatio: 0.85,
                           shrinkWrap: true,
                           children: items.map((ItemHomepage item) {
                             return ItemCard(item);
@@ -138,50 +145,6 @@ class InfoCard extends StatelessWidget {
               const SizedBox(height: 8.0),
               Text(content),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: item.color,
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("You pressed the ${item.name} button!"))
-            );
-        },
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
           ),
         ),
       ),
