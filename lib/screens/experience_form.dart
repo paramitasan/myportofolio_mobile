@@ -195,7 +195,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                     if (value != null && value.trim().isNotEmpty) {
                       final uri = Uri.tryParse(value.trim());
                       if (uri == null ||
-                          !uri.hasAbsolutePath ||
+                          uri.host.isEmpty ||
                           (uri.scheme != 'http' && uri.scheme != 'https')) {
                         return "Enter a valid URL (http/https).";
                       }
@@ -297,7 +297,7 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                                     Text('Experience: $_title'),
                                     Text('Description: $_description'),
                                     Text('Category: $_category'),
-                                    Text('Thumbnail: $_thumbnail'),
+                                    Text('Thumbnail: ${_thumbnail.isEmpty ? '-' : _thumbnail}'),
                                     // Format DateTime to YYYY-MM-DD without time
                                     Text('Started at: ${_startedAt?.toString().split(' ')[0]}'),
                                     // Format DateTime to YYYY-MM-DD without time

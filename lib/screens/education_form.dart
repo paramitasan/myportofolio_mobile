@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 
 class EducationFormPage extends StatefulWidget {
@@ -81,6 +82,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   maxLength: 4,
                   decoration: InputDecoration(
                     hintText: "e.g. 2022",
