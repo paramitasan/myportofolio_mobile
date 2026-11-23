@@ -71,13 +71,15 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Experience Form',
+        title: const Text(
+            'Add Experience',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.blueGrey.shade700,
-        foregroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       
       drawer: const LeftDrawer(),
@@ -345,4 +347,3 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
     );
   }
 }
-

@@ -28,7 +28,7 @@ class LeftDrawer extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  'Explore personal projects and experiences!',
+                  'Explore personal  experiences and education records!',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.white,

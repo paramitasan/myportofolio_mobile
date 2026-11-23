@@ -31,13 +31,15 @@ class _EducationFormPageState extends State<EducationFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Education Form',
+        title: const Text(
+            'Add Education Record',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.blueGrey.shade700,
-        foregroundColor: Colors.white,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       
       drawer: const LeftDrawer(),
