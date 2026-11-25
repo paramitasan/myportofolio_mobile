@@ -21,34 +21,33 @@ class ItemCard extends StatelessWidget {
         onTap: () async {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("You pressed the ${item.name} button!"))
-            );
-          
+            ..showSnackBar(SnackBar(
+                content: Text("You pressed the ${item.name} button!")));
+
           // Navigate to the appropriate screen
           if (item.name == "Add Experience") {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ExperienceFormPage(),
-                ),
-              );
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ExperienceFormPage(),
+              ),
+            );
           } else if (item.name == "Add Education Record") {
             final allowed = await ensureLoggedIn(context);
             if (!allowed || !context.mounted) return;
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const EducationFormPage(),
-                ),
-              );
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EducationFormPage(),
+              ),
+            );
           } else if (item.name == "View Education Record") {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const EducationListScreen(),
-                ),
-              );
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EducationListScreen(),
+              ),
+            );
           } else if (item.name == "Logout") {
             final authState = context.read<AuthState>();
             if (authState.isLoggedIn) {
@@ -70,7 +69,6 @@ class ItemCard extends StatelessWidget {
             }
           }
         },
-        
         child: Container(
           padding: const EdgeInsets.all(8),
           child: Center(

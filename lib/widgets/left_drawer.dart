@@ -44,7 +44,6 @@ class LeftDrawer extends StatelessWidget {
               ],
             ),
           ),
-
           ListTile(
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
@@ -58,7 +57,6 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
-          
           ListTile(
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add Experience'),
@@ -72,7 +70,6 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
-          
           ListTile(
             leading: const Icon(Icons.post_add_outlined),
             title: const Text('Add Education Record'),
@@ -89,7 +86,6 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
-
           const Divider(),
           if (!isLoggedIn)
             ListTile(

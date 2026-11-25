@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() {
       _isSubmitting = true;
     });
-    
+
     try {
       await context.read<AuthState>().login(_username, _password);
       if (!mounted) return;

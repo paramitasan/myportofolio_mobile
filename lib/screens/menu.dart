@@ -12,10 +12,13 @@ class MyHomePage extends StatelessWidget {
 
   final List<ItemHomepage> items = [
     ItemHomepage("View Education Record", Icons.folder, Colors.teal.shade500),
-    ItemHomepage("View Experiences", Icons.assignment_ind, Colors.deepPurple.shade500),
+    ItemHomepage(
+        "View Experiences", Icons.assignment_ind, Colors.deepPurple.shade500),
     ItemHomepage("Logout", Icons.logout, Colors.red.shade500),
-    ItemHomepage("Add Education Record", Icons.post_add, Colors.cyanAccent.shade700),
-    ItemHomepage("Add Experience", Icons.add_circle, Colors.indigoAccent.shade700),
+    ItemHomepage(
+        "Add Education Record", Icons.post_add, Colors.cyanAccent.shade700),
+    ItemHomepage(
+        "Add Experience", Icons.add_circle, Colors.indigoAccent.shade700),
   ];
 
   @override
@@ -23,18 +26,16 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'My Portofolio',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+          'My Portofolio',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.blueGrey.shade700,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-
       drawer: const LeftDrawer(),
-      
       body: SingleChildScrollView(
         child: Center(
           child: ConstrainedBox(
@@ -71,7 +72,6 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                         ),
-
                         GridView.count(
                           primary: false,
                           physics: const NeverScrollableScrollPhysics(),

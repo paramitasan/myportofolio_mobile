@@ -72,7 +72,8 @@ class _EducationFormPageState extends State<EducationFormPage> {
                 children: [
                   Text('Institution: $_institutionName'),
                   Text('Starting Year: $_startingYear'),
-                  Text('End Year: ${_isOngoing ? 'Present' : (_endYear ?? '-')}'),
+                  Text(
+                      'End Year: ${_isOngoing ? 'Present' : (_endYear ?? '-')}'),
                   Text('Description: $_description'),
                 ],
               ),
@@ -132,18 +133,16 @@ class _EducationFormPageState extends State<EducationFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'Add Education Record',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+          'Add Education Record',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.blueGrey.shade700,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      
       drawer: const LeftDrawer(),
-
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -178,7 +177,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
                   },
                 ),
               ),
-              
+
               // === Starting year ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -248,7 +247,9 @@ class _EducationFormPageState extends State<EducationFormPage> {
                     });
                   },
                   validator: (String? value) {
-                    if (!_isOngoing && value != null && value.trim().isNotEmpty) {
+                    if (!_isOngoing &&
+                        value != null &&
+                        value.trim().isNotEmpty) {
                       final year = int.tryParse(value.trim());
                       if (year == null || year < 2010 || year > 2100) {
                         return "Enter a valid year between 2010 and 2100.";
@@ -299,8 +300,9 @@ class _EducationFormPageState extends State<EducationFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                        WidgetStateProperty.all(Colors.blueGrey.shade700,),
+                      backgroundColor: WidgetStateProperty.all(
+                        Colors.blueGrey.shade700,
+                      ),
                     ),
                     onPressed: _isSubmitting ? null : _submit,
                     child: _isSubmitting
@@ -321,7 +323,6 @@ class _EducationFormPageState extends State<EducationFormPage> {
               ),
             ],
           ),
-          
         ),
       ),
     );

@@ -8,7 +8,8 @@ class EducationDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final period = '${education.startingYear}-${education.endYear ?? "Present"}';
+    final period =
+        '${education.startingYear}-${education.endYear ?? "Present"}';
 
     return Scaffold(
       appBar: AppBar(

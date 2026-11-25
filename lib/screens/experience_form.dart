@@ -66,24 +66,22 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
       });
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-            'Add Experience',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
+          'Add Experience',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
         backgroundColor: Colors.blueGrey.shade700,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      
       drawer: const LeftDrawer(),
-
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -282,8 +280,9 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                        WidgetStateProperty.all(Colors.blueGrey.shade700,),
+                      backgroundColor: WidgetStateProperty.all(
+                        Colors.blueGrey.shade700,
+                      ),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -291,7 +290,8 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text('Experience added successfully!'),
+                              title:
+                                  const Text('Experience added successfully!'),
                               content: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,11 +299,14 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
                                     Text('Experience: $_title'),
                                     Text('Description: $_description'),
                                     Text('Category: $_category'),
-                                    Text('Thumbnail: ${_thumbnail.isEmpty ? '-' : _thumbnail}'),
+                                    Text(
+                                        'Thumbnail: ${_thumbnail.isEmpty ? '-' : _thumbnail}'),
                                     // Format DateTime to YYYY-MM-DD without time
-                                    Text('Started at: ${_startedAt?.toString().split(' ')[0]}'),
+                                    Text(
+                                        'Started at: ${_startedAt?.toString().split(' ')[0]}'),
                                     // Format DateTime to YYYY-MM-DD without time
-                                    Text('Ended at: ${_endedAt?.toString().split(' ')[0] ?? '-'}'),
+                                    Text(
+                                        'Ended at: ${_endedAt?.toString().split(' ')[0] ?? '-'}'),
                                   ],
                                 ),
                               ),
@@ -341,7 +344,6 @@ class _ExperienceFormPageState extends State<ExperienceFormPage> {
               ),
             ],
           ),
-          
         ),
       ),
     );
