@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/education_form.dart';
+import 'package:myportofolio_mobile/screens/login_screen.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart';
+import 'package:provider/provider.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = context.watch<AuthState>().isLoggedIn;
+    // error: the method 'watch' isn't defined for the type 'BuildContext'
+
     return Drawer(
       child: ListView(
         children: [
@@ -19,7 +26,7 @@ class LeftDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'My Portfolio',
+                  'My Portofolio',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -70,7 +77,11 @@ class LeftDrawer extends StatelessWidget {
             leading: const Icon(Icons.post_add_outlined),
             title: const Text('Add Education Record'),
             // Navigate to the Add Education screen
-            onTap: () {
+            onTap: () async {
+              final allowed = await ensureLoggedIn(context);
+              // error: the await expression can only be used in an async function
+              if (!allowed || !context.mounted) return;
+
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
@@ -79,6 +90,36 @@ class LeftDrawer extends StatelessWidget {
               );
             },
           ),
+
+          const Divider(),
+          if (!isLoggedIn)
+            ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
+              onTap: () {
+                Navigator.pop(context); // Close drawer first
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginScreen(),
+                  ),
+                );
+              },
+            )
+          else
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () async {
+                Navigator.pop(context); // Close drawer first
+                await context.read<AuthState>().logout();
+                // error: the method 'read' isn't defined for the type 'BuildContext'
+                if (!context.mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Logged out successfully.')),
+                );
+              },
+            ),
         ],
       ),
     );
