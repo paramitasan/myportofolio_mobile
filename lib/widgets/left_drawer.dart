@@ -79,7 +79,6 @@ class LeftDrawer extends StatelessWidget {
             // Navigate to the Add Education screen
             onTap: () async {
               final allowed = await ensureLoggedIn(context);
-              // error: the await expression can only be used in an async function
               if (!allowed || !context.mounted) return;
 
               Navigator.pushReplacement(
@@ -113,7 +112,6 @@ class LeftDrawer extends StatelessWidget {
               onTap: () async {
                 Navigator.pop(context); // Close drawer first
                 await context.read<AuthState>().logout();
-                // error: the method 'read' isn't defined for the type 'BuildContext'
                 if (!context.mounted) return;
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text('Logged out successfully.')),

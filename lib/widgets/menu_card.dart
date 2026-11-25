@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myportofolio_mobile/screens/experience_form.dart';
 import 'package:myportofolio_mobile/screens/education_form.dart';
+import 'package:myportofolio_mobile/screens/education_list_screen.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/widgets/auth_guard.dart';
-// alert: auth_guard.dart unused import
 import 'package:myportofolio_mobile/services/auth_state.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +40,13 @@ class ItemCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const EducationFormPage(),
+                ),
+              );
+          } else if (item.name == "View Education Record") {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EducationListScreen(),
                 ),
               );
           } else if (item.name == "Logout") {
