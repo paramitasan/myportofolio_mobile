@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
+import 'package:myportofolio_mobile/models/education.dart';
+import 'package:myportofolio_mobile/services/api_client.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:provider/provider.dart';
 
 class EducationFormPage extends StatefulWidget {
   const EducationFormPage({super.key});
@@ -17,6 +22,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
   int? _endYear;
   String _description = "";
   bool _isOngoing = false;
+  bool _isSubmitting = false;
 
   // Controllers to display picked dates in TextFormFields
   final TextEditingController _endYearController = TextEditingController();
@@ -25,6 +31,100 @@ class _EducationFormPageState extends State<EducationFormPage> {
   void dispose() {
     _endYearController.dispose();
     super.dispose();
+  }
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    final allowed = await ensureLoggedIn(context);
+    if (!allowed || !mounted) return;
+
+    final token = context.read<AuthState>().token;
+    if (token == null) return;
+
+    final newEducation = Education(
+      institutionName: _institutionName.trim(),
+      startingYear: _startingYear!,
+      endYear: _isOngoing ? null : _endYear,
+      description: _description.trim(),
+    );
+
+    setState(() {
+      _isSubmitting = true;
+    });
+
+    try {
+      await context.read<ApiClient>().createEducation(
+            newEducation,
+            token: token,
+          );
+      if (!mounted) return;
+
+      await showDialog<void>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Education added successfully!'),
+            content: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Institution: $_institutionName'),
+                  Text('Starting Year: $_startingYear'),
+                  Text('End Year: ${_isOngoing ? 'Present' : (_endYear ?? '-')}'),
+                  Text('Description: $_description'),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+
+      if (!mounted) return;
+      _formKey.currentState!.reset();
+      setState(() {
+        _institutionName = "";
+        _startingYear = null;
+        _endYear = null;
+        _description = "";
+        _isOngoing = false;
+        _endYearController.clear();
+      });
+    } on ApiException catch (e) {
+      if (!mounted) return;
+
+      if (e.statusCode == 401) {
+        await context.read<AuthState>().logout();
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Session expired. Please log in again.'),
+          ),
+        );
+        await ensureLoggedIn(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to save education (Status: ${e.statusCode})'),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isSubmitting = false;
+        });
+      }
+    }
   }
 
   @override
@@ -202,50 +302,20 @@ class _EducationFormPageState extends State<EducationFormPage> {
                       backgroundColor:
                         WidgetStateProperty.all(Colors.blueGrey.shade700,),
                     ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Education added successfully!'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Institution: $_institutionName'),
-                                    Text('Starting Year: $_startingYear'),
-                                    Text('End Year: ${_endYear ?? '-'}'),
-                                    Text('Description: $_description'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    _formKey.currentState!.reset();
-                                    setState(() {
-                                      _institutionName = "";
-                                      _startingYear = null;
-                                      _endYear = null;
-                                      _description = "";
-                                      _isOngoing = false;
-                                      _endYearController.clear();
-                                    });
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                    },
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    onPressed: _isSubmitting ? null : _submit,
+                    child: _isSubmitting
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text(
+                            "Save",
+                            style: TextStyle(color: Colors.white),
+                          ),
                   ),
                 ),
               ),
